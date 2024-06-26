@@ -9,11 +9,14 @@
           <el-col :span="8">
             <el-card @click="navigateTo('pending')">待审批</el-card>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-card @click="navigateTo('approved')">已通过</el-card>
           </el-col>
           <el-col :span="8">
             <el-card @click="navigateTo('rejected')">未通过</el-card>
+          </el-col> -->
+          <el-col :span="8">
+            <el-card @click="navigateTo('submitted')">提交记录</el-card>
           </el-col>
         </el-row>
       </el-main>
@@ -30,20 +33,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'HomePage',
-  computed: {
-    ...mapState('user', ['userInfo'])
-  },
   methods: {
     navigateTo(page) {
-      if (page === 'create') {
-        this.$router.push({ name: 'CreateApplication', params: { applicant: this.userInfo.name } });
-      } else {
-        this.$router.push(`/${page}`);
-      }
+      this.$router.push(`/${page}`);
     }
   }
 };

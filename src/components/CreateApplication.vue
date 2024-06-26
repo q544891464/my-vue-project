@@ -50,10 +50,12 @@
       };
     },
     created() {
-      const applicant = this.$route.params.applicant || '未知申请人';
-      this.form.applicant = applicant;
+    //   const applicant = this.$route.params.applicant || '未知申请人';
+      
   
       const storedUserInfo = JSON.parse(localStorage.getItem('loginUserInfo'));
+      const applicant = storedUserInfo ? storedUserInfo.name : "未知申请人";
+      this.form.applicant = applicant;
       const orgId = storedUserInfo ? storedUserInfo.orgId : null;
       const userId = storedUserInfo ? storedUserInfo.phone : null;
   

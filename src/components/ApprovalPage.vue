@@ -28,11 +28,17 @@
         <el-form-item label="申请说明">
           <el-input type="textarea" v-model="application.description" readonly></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item label="审批意见">
+          <el-input type="textarea" v-model="application.approverRemarks" :readonly="isFromSubmitted"></el-input>
+        </el-form-item>
+        <el-form-item v-if="!isFromSubmitted">
           <el-button type="success" @click="approve" class="action-button">通过</el-button>
         </el-form-item>
-        <el-form-item>
+        <el-form-item v-if="!isFromSubmitted">
           <el-button type="danger" @click="reject" class="action-button">驳回</el-button>
+        </el-form-item>
+        <el-form-item v-if="isFromSubmitted && application.status === '未通过'">
+          <el-button type="primary" @click="resubmit" class="action-button">重新提交</el-button>
         </el-form-item>
       </el-form>
     </el-main>
@@ -50,8 +56,10 @@ export default {
         approver: this.$route.query.approver,
         title: this.$route.query.title,
         description: this.$route.query.description,
-        status: '待审批'
-      }
+        status: this.$route.query.status,
+        approverRemarks: this.$route.query.approverRemarks || ''
+      },
+      isFromSubmitted: this.$route.query.isFromSubmitted === 'true'
     };
   },
   methods: {
@@ -68,6 +76,14 @@ export default {
         message: '申请已驳回',
         type: 'error'
       });
+    },
+    resubmit() {
+      // 模拟重新提交的逻辑
+      this.$message({
+        message: '申请已重新提交',
+        type: 'success'
+      });
+      this.$router.push('/');
     }
   }
 };
