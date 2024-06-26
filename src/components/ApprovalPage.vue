@@ -6,6 +6,10 @@
         <el-form-item label="审批状态">
           <el-input v-model="application.status" readonly></el-input>
         </el-form-item>
+        <!-- 添加优先级 -->
+        <el-form-item label="优先级">
+          <el-tag :type="priorityTagType">{{ application.priority || '中' }}</el-tag>
+        </el-form-item>
         <el-form-item>
           <el-row :gutter="20">
             <el-col :span="24">
@@ -57,11 +61,26 @@ export default {
         title: this.$route.query.title,
         description: this.$route.query.description,
         status: this.$route.query.status,
+        priority: this.$route.query.priority || '中', // 默认优先级为“中”
         approverRemarks: this.$route.query.approverRemarks || ''
       },
       isFromSubmitted: this.$route.query.isFromSubmitted === 'true',
       isEditable: false
     };
+  },
+  computed: {
+    priorityTagType() {
+      switch (this.application.priority) {
+        case '高':
+          return 'danger';
+        case '中':
+          return 'warning';
+        case '低':
+          return 'success';
+        default:
+          return 'info';
+      }
+    }
   },
   created() {
     if (this.isFromSubmitted && this.application.status === '未通过') {
