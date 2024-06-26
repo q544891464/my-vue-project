@@ -1,7 +1,25 @@
 <template>
     <el-container class="pending-container">
       <el-main>
-        <el-table :data="applications" style="width: 100%">
+        <div class="filter-buttons">
+          <el-button
+            :class="{ 'active-button': selectedStatus === 'all' }"
+            @click="filterApplications('all')"
+          >全部</el-button>
+          <el-button
+            :class="{ 'active-button': selectedStatus === '待审批' }"
+            @click="filterApplications('待审批')"
+          >待审批</el-button>
+          <el-button
+            :class="{ 'active-button': selectedStatus === '已通过' }"
+            @click="filterApplications('已通过')"
+          >已通过</el-button>
+          <el-button
+            :class="{ 'active-button': selectedStatus === '未通过' }"
+            @click="filterApplications('未通过')"
+          >未通过</el-button>
+        </div>
+        <el-table :data="filteredApplications" style="width: 100%">
           <el-table-column prop="title" label="申请标题" width="180"></el-table-column>
           <el-table-column prop="applicant.name" label="申请人" width="180"></el-table-column>
           <el-table-column prop="approver.name" label="审批人" width="180"></el-table-column>
@@ -22,7 +40,9 @@
     name: 'PendingPage',
     data() {
       return {
-        applications: []
+        applications: [],
+        selectedStatus: 'all',
+        filteredApplications: []
       };
     },
     created() {
@@ -91,8 +111,19 @@
               }
             ]
           }
+          // 可以继续添加更多模拟数据...
         ];
+  
         this.applications = mockApplications;
+        this.filteredApplications = mockApplications;
+      },
+      filterApplications(status) {
+        this.selectedStatus = status;
+        if (status === 'all') {
+          this.filteredApplications = this.applications;
+        } else {
+          this.filteredApplications = this.applications.filter(app => app.status === status);
+        }
       },
       handleDetail(application) {
         // 跳转到申请详情页
@@ -110,6 +141,16 @@
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+  }
+  .filter-buttons {
+    margin-bottom: 20px;
+  }
+  .filter-buttons .el-button {
+    margin-right: 10px;
+  }
+  .active-button {
+    background-color: #409EFF;
+    color: #fff;
   }
   </style>
   
