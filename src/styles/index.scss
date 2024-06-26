@@ -1,0 +1,36 @@
+.van-pull-refresh {
+  height: 100%;
+  overflow: auto;
+}
+
+.eqc-content {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    position: relative;
+    background-color: white;
+    .eqc-top {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .eqc-search {
+        width: 100%;
+        position: fixed;
+        left: 0;
+        top: 80px;
+    }
+    .eqc-scrollbar {
+      width: 100%;
+      height:calc(100% - 350px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: white;
+    }
+  }
+  .van-nav-bar .van-icon{
+    color: #3C3C3C;
+  }
+  .van-nav-bar.van-nav-bar--fixed.van-hairline--bottom::after{
+    border-bottom: 0;
+  }

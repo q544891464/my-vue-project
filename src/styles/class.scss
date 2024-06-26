@@ -1,0 +1,32 @@
+// 有时和规范不一样，不一样的情况用css覆盖即可
+// 默认白色
+.zdxlz-skin-white {
+  --ZDXLZ-PRIMARY: #316EF4;
+  --ZDXLZ-BG: #FFFFFF;
+  --ZDXLZ-BORDER: #CCCCCC;
+  --ZDXLZ-BORDER-1: #F6F6F6;  // 聊天页面/分割大线/弹窗按钮背景
+  --ZDXLZ-FONT-BOLD: #000;    // 设计稿加粗字体就用黑色，代码不加粗
+  --ZDXLZ-FONT-1: #3C3C3C;
+  --ZDXLZ-FONT-2: #CCCCCC;
+  --ZDXLZ-FONT-3: #888888;
+  --ZDXLZ-FONT-4: #FFFFFF;
+  --ZDXLZ-FONT-5: #F13E3E;
+  --ZDXLZ-FONT-6: #BFBFBF;
+  --ZDXLZ-FONT-7: #FFA800;
+}
+
+// 暗黑模式
+.zdxlz-skin-black {
+  --ZDXLZ-PRIMARY: #316EF4;
+  --ZDXLZ-BG: #1A1A1A;
+  --ZDXLZ-BORDER: #464646;
+  --ZDXLZ-BORDER-1: #464646; // 聊天页面/分割大线/弹窗按钮背景
+  --ZDXLZ-FONT-BOLD: #fff; // 设计稿加粗字体就用白色，代码不加粗
+  --ZDXLZ-FONT-1: #FFFFFF;
+  --ZDXLZ-FONT-2: #595959;
+  --ZDXLZ-FONT-3: #888888;
+  --ZDXLZ-FONT-4: #FFFFFF;
+  --ZDXLZ-FONT-5: #F13E3E;
+  --ZDXLZ-FONT-6: #595959;
+  --ZDXLZ-FONT-7: #888888;
+}
