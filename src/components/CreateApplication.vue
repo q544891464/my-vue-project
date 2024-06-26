@@ -21,6 +21,13 @@
           <el-form-item label="申请说明" :required="true">
             <el-input type="textarea" v-model="form.description" placeholder="请输入申请内容"></el-input>
           </el-form-item>
+          <el-form-item label="申请优先度" :required="true">
+            <el-select v-model="form.priority" placeholder="请选择优先度">
+              <el-option label="高" value="高"></el-option>
+              <el-option label="中" value="中"></el-option>
+              <el-option label="低" value="低"></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitApplication" class="submit-button">提交</el-button>
           </el-form-item>
@@ -44,17 +51,15 @@
           approver: '',
           title: '',
           description: '',
+          priority: '',
           status: '待审批'
         },
         approvers: []
       };
     },
     created() {
-    //   const applicant = this.$route.params.applicant || '未知申请人';
-      
-  
       const storedUserInfo = JSON.parse(localStorage.getItem('loginUserInfo'));
-      const applicant = storedUserInfo ? storedUserInfo.name : "未知申请人";
+      const applicant = storedUserInfo ? storedUserInfo.name : '未知申请人';
       this.form.applicant = applicant;
       const orgId = storedUserInfo ? storedUserInfo.orgId : null;
       const userId = storedUserInfo ? storedUserInfo.phone : null;
@@ -94,54 +99,8 @@
           });
         }
       },
-      async testFetchApprovers() {
-        const storedUserInfo = JSON.parse(localStorage.getItem('loginUserInfo'));
-        const orgId = storedUserInfo ? storedUserInfo.orgId : null;
-        const userId = storedUserInfo ? storedUserInfo.phone : null;
-  
-        if (orgId && userId) {
-          try {
-            const response = await axios.get('/api/im-biz/api/org/getChildDepartAndUsers', {
-              params: {
-                orgId: 1001104
-              },
-              headers: {
-                'X-User-ID': userId
-              }
-            });
-  
-            if (response.data && response.data.success && response.data.data && response.data.data.departUserList) {
-              const approvers = response.data.data.departUserList.userList.map(user => ({
-                phone: user.phone,
-                userName: user.userName
-              }));
-              console.log('获取的通讯录:', approvers);
-              this.$message({
-                message: '获取通讯录成功，检查控制台日志',
-                type: 'success'
-              });
-            } else {
-              this.$message({
-                message: '获取通讯录失败',
-                type: 'error'
-              });
-            }
-          } catch (error) {
-            console.error('Error fetching approvers:', error);
-            this.$message({
-              message: '获取通讯录失败',
-              type: 'error'
-            });
-          }
-        } else {
-          this.$message({
-            message: '用户信息缺失，无法获取通讯录',
-            type: 'warning'
-          });
-        }
-      },
       async submitApplication() {
-        if (!this.form.approver || !this.form.title || !this.form.description) {
+        if (!this.form.approver || !this.form.title || !this.form.description || !this.form.priority) {
           this.$message({
             message: '请填写所有必填项',
             type: 'warning'

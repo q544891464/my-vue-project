@@ -10,10 +10,6 @@
       <span class="title">{{ getTitle }}</span>
     </el-header>
     <el-main>
-      <!-- <div class="nav-buttons">
-        <el-button @click="navigateTo('/')">申请页面</el-button>
-        <el-button @click="navigateTo('/approval')">审批页面</el-button>
-      </div> -->
       <router-view />
     </el-main>
   </div>
@@ -27,6 +23,16 @@ export default {
       switch (this.$route.path) {
         case '/approval':
           return '审批';
+        case '/create':
+          return '新建申请';
+        case '/pending':
+          return '待审批';
+        case '/approved':
+          return '已通过';
+        case '/rejected':
+          return '未通过';
+        case '/submitted':
+          return '提交记录';
         default:
           return '申请';
       }
@@ -62,13 +68,14 @@ export default {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-}
-.nav-buttons {
+  background-color: #409EFF; /* 修改背景颜色 */
+  color: #044977; /* 修改图标和文本颜色 */
+  border: none; /* 去掉边框 */
+  border-radius: 50%; /* 圆形按钮 */
+  width: 40px;
+  height: 40px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-}
-.nav-buttons .el-button {
-  margin: 0 10px;
 }
 </style>

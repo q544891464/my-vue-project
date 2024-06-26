@@ -5,6 +5,7 @@ import store from './store';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import JSBridge from './utils/js-bridge';
+import * as Icons from '@element-plus/icons-vue'; // 引入图标库
 
 // 定义一个异步函数来获取并存储登录信息
 async function initApp() {
@@ -16,6 +17,11 @@ async function initApp() {
   app.use(router);
   app.use(store);
   app.use(ElementPlus);
+
+    // 注册图标组件
+  Object.keys(Icons).forEach(key => {
+    app.component(key, Icons[key]);
+  });
   app.mount('#app');
 }
 

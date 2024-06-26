@@ -23,10 +23,10 @@
           </el-row>
         </el-form-item>
         <el-form-item label="申请标题">
-          <el-input v-model="application.title" readonly></el-input>
+          <el-input v-model="application.title" :readonly="!isEditable"></el-input>
         </el-form-item>
         <el-form-item label="申请说明">
-          <el-input type="textarea" v-model="application.description" readonly></el-input>
+          <el-input type="textarea" v-model="application.description" :readonly="!isEditable"></el-input>
         </el-form-item>
         <el-form-item label="审批意见">
           <el-input type="textarea" v-model="application.approverRemarks" :readonly="isFromSubmitted"></el-input>
@@ -59,8 +59,14 @@ export default {
         status: this.$route.query.status,
         approverRemarks: this.$route.query.approverRemarks || ''
       },
-      isFromSubmitted: this.$route.query.isFromSubmitted === 'true'
+      isFromSubmitted: this.$route.query.isFromSubmitted === 'true',
+      isEditable: false
     };
+  },
+  created() {
+    if (this.isFromSubmitted && this.application.status === '未通过') {
+      this.isEditable = true;
+    }
   },
   methods: {
     approve() {
